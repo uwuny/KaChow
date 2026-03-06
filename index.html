@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <title>Статистика боёв</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
 <style>
-/* твой CSS без изменений */
 body{background:#1e1e1e;color:white;font-family:Arial;margin:0;padding:0;}
 #table{overflow-x:auto;}
 table{border-collapse:collapse;margin-top:10px;}
@@ -28,10 +28,12 @@ button.active{background:#4a6ed1;border-color:#6f8fff;}
 
 <h2>Статистика</h2>
 
+<!-- Загрузка реплеев -->
 <input type="file" id="fileInput" multiple>
 <button onclick="uploadReplays()">Загрузить реплеи</button>
 <br>
 
+<!-- Кнопки фильтров -->
 <button onclick="loadTable('damage',event)">Урон</button>
 <button onclick="loadTable('damage_received',event)">Получено</button>
 <button onclick="loadTable('hits',event)">Попадания</button>
@@ -39,6 +41,7 @@ button.active{background:#4a6ed1;border-color:#6f8fff;}
 
 <div id="table"></div>
 
+<!-- JS -->
 <script src="tables.js"></script>
 </body>
 </html>
