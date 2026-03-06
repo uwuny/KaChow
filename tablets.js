@@ -1,5 +1,6 @@
 let DATA = { battles: [] }
 
+// Загрузка одного или нескольких реплеев
 async function uploadReplays() {
     const fileInput = document.getElementById("fileInput")
     const files = fileInput.files
@@ -8,6 +9,7 @@ async function uploadReplays() {
     for(const file of files){
         const formData = new FormData()
         formData.append("file", file)
+
         try{
             const response = await fetch("https://test-production-972a.up.railway.app/upload", {
                 method: "POST",
@@ -20,10 +22,10 @@ async function uploadReplays() {
         }
     }
 
-    loadTable("damage")  // после загрузки всех реплеев строим таблицу
+    loadTable("damage")  // Строим таблицу после загрузки
 }
 
-// дальше оставляем твою функцию loadTable без изменений
+// ---- твоя старая функция loadTable без изменений ----
 function loadTable(type,event){
     document.querySelectorAll("button").forEach(b=>b.classList.remove("active"))
     if(event) event.target.classList.add("active")
