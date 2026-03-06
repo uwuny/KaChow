@@ -1,24 +1,26 @@
-let DATA = null
+let DATA = { battles: [] }
 
-async function uploadReplay() {
+async function uploadReplays() {
     const fileInput = document.getElementById("fileInput")
-    const file = fileInput.files[0]
-    if(!file) return alert("Выберите файл")
+    const files = fileInput.files
+    if(files.length === 0) return alert("Выберите файлы")
 
-    const formData = new FormData()
-    formData.append("file", file)
-
-    try {
-        const response = await fetch("https://test-production-972a.up.railway.app/upload", {
-            method: "POST",
-            body: formData
-        })
-        const data = await response.json()
-        DATA = { battles: [data] } // оборачиваем в battles[], чтобы старый loadTable работал
-        loadTable("damage")
-    } catch(e) {
-        alert("Ошибка при загрузке: " + e.message)
+    for(const file of files){
+        const formData = new FormData()
+        formData.append("file", file)
+        try{
+            const response = await fetch("https://test-production-972a.up.railway.app/upload", {
+                method: "POST",
+                body: formData
+            })
+            const battle = await response.json()
+            DATA.battles.push(battle)
+        }catch(e){
+            alert(`Ошибка при загрузке ${file.name}: ${e.message}`)
+        }
     }
+
+    loadTable("damage")  // после загрузки всех реплеев строим таблицу
 }
 
 // дальше оставляем твою функцию loadTable без изменений
