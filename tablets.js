@@ -1,6 +1,5 @@
 let DATA = { battles: [] }
 
-// Загрузка одного или нескольких реплеев
 async function uploadReplays() {
     const fileInput = document.getElementById("fileInput")
     const files = fileInput.files
@@ -9,12 +8,12 @@ async function uploadReplays() {
     for(const file of files){
         const formData = new FormData()
         formData.append("file", file)
-
         try{
             const response = await fetch("https://test-production-972a.up.railway.app/upload", {
                 method: "POST",
                 body: formData
             })
+            if(!response.ok) throw new Error("HTTP error " + response.status)
             const battle = await response.json()
             DATA.battles.push(battle)
         }catch(e){
@@ -22,7 +21,7 @@ async function uploadReplays() {
         }
     }
 
-    loadTable("damage")  // Строим таблицу после загрузки
+    loadTable("damage")
 }
 
 // ---- твоя старая функция loadTable без изменений ----
